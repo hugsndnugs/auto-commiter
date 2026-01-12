@@ -5,7 +5,7 @@ Auto-commit script that updates a file and commits the changes.
 
 import os
 import sys
-from datetime import datetime
+from datetime import datetime, timezone
 from pathlib import Path
 
 # Configuration
@@ -17,7 +17,7 @@ def update_file(file_path: Path) -> str:
     Update the target file with current timestamp.
     Returns the content that was written.
     """
-    timestamp = datetime.utcnow().isoformat() + " UTC"
+    timestamp = datetime.now(timezone.utc).replace(tzinfo=None).isoformat() + " UTC"
     content = f"Last updated: {timestamp}\n"
     
     file_path.parent.mkdir(parents=True, exist_ok=True)
